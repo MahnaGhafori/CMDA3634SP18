@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <iostream>
+
 
 #include "functions.h"
 
 //compute a*b mod p safely
-long modprod(long a, long  b, long p) {
+unsigned int modprod(unsigned int a, unsigned int  b, unsigned int p) {
   /* Q1.2: Complete this function */
   if (a == 0 || b == 0) {
 		return 0;
@@ -19,11 +19,11 @@ long modprod(long a, long  b, long p) {
   }
 
   // Returns: (a * b/2) mod p 
-  long a2 = modprod(a, b / 2, c);
+  long a2 = modprod(a, b / 2, p);
 
   //Even factor 
   if ((b & 1) == 0) { 
-  	return (a2 + a2) % c;
+  	return (a2 + a2) % p;
 	} else {
 	return ((a & p) + (a2 + a2)) % p;
 	}
@@ -98,7 +98,7 @@ unsigned int isProbablyPrime(unsigned int N) {
 	d = (N-1)/2;
 	r = 1;
 
-	while (d % 2 ! = 0) {
+	while (d % 2 != 0) {
 		d/=2;
 		r++;
 	}
@@ -111,8 +111,8 @@ unsigned int isProbablyPrime(unsigned int N) {
   if (x == 1 || x == N - 1) {
 	continue;
   }
-	for ( i = 1; i <= r-1; i++) {
-	x = modProd(x,x,N);
+	for (int i = 1; i <= r-1; i++) {
+	x = modprod(x,x,N);
 
 	if (x == 1) {
 	return 0;
@@ -131,6 +131,7 @@ unsigned int isProbablyPrime(unsigned int N) {
 //Finds a generator of Z_p using the assumption that p=2*q+1
 unsigned int findGenerator(unsigned int p) {
   /* Q3.3: complete this function and use the fact that p=2*q+1 to quickly find a generator */
+  unsigned int q = (p-1)/2;
 	int g = 2; 
 	for (int g = 2; g < p; g++);
 	{
@@ -140,14 +141,6 @@ unsigned int findGenerator(unsigned int p) {
 			{
 				return g; 
 			}
-			else 
-			{
-				continue; 
-			}
-		}
-		else 
-		{
-			continue; 
 		}
 	}
 }

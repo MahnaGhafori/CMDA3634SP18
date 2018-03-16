@@ -28,11 +28,11 @@ int main (int argc, char **argv) {
 		return 0;  	
   }
 
-  int p= randomXbitInt;
-
-  while (!isProbablyPrime(guess)) {
-	p = randomXbitInt(n);
-  }
+  int p= randXbitInt(n);
+  unsigned int guess = randXbitInt(n);
+  while (!isProbablyPrime(p)) {
+	guess = randXbitInt(n-1);
+ }
 
   /* Q2.2: Use isProbablyPrime and randomXbitInt to find a random n-bit prime number */
 
@@ -41,12 +41,12 @@ int main (int argc, char **argv) {
   /* Q3.2: Use isProbablyPrime and randomXbitInt to find a new random n-bit prime number 
      which satisfies p=2*q+1 where q is also prime */
   int q;
-  q = randomXbitInt(n-1);
+  q = randXbitInt(n-1);
   p=4;
   while(isProbablyPrime(p) ==0) {
-	q = randomXbitInt(n-1);
-	while(isPrbablyPrime(q) ==0) {
-		q = randomXbitInt(n-1);
+	q = randXbitInt(n-1);
+	while(isProbablyPrime(q) ==0) {
+		q = randXbitInt(n-1);
 	}
 	p = 2*q + 1;
   }
